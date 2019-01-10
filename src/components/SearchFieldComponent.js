@@ -7,7 +7,7 @@ class SearchFieldComponent extends Component {
       super(props);
       this.state = {
         serach: "",
-        gifs: [],
+        randomGif: {},
       };
 }
 
@@ -17,37 +17,53 @@ handleChange = (event) => {
     })
 }
 
+handleClickRandom = (event) => {
+    event.preventDefault();
+    var url = "http://api.giphy.com/v1/gifs/random?api_key=gDhzcwsGQPMrsxeVQSFPZ2ozY4Yd4RXr";
+    axios.get(url)
+    .then(response => {
+      var result = response.data.data;
+      var newArray = [result];
+      this.props.update(newArray);
+        console.log (this.state.gifs);
+    })
+    .catch(err => console.log(err));
+ 
+}
+handleClickTrending = (event) => {
+    event.preventDefault();
+    var url = "http://api.giphy.com/v1/gifs/trending?api_key=gDhzcwsGQPMrsxeVQSFPZ2ozY4Yd4RXr";
+    this.process(url);
+}
 handleClick = (event) => {
     event.preventDefault();
     var newString = this.state.search.replace(/\s+/g, '+');
-    axios.get(`http://api.giphy.com/v1/gifs/search?q=${newString}&api_key=gDhzcwsGQPMrsxeVQSFPZ2ozY4Yd4RXr`)
-        .then(response => {
-          var result = response.data.data;
-          this.setState({
-              gifs : result
-            });
-            console.log (this.state.gifs);
-        })
-    .catch(err => console.log(err));
+    var url = `http://api.giphy.com/v1/gifs/search?q=${newString}&api_key=gDhzcwsGQPMrsxeVQSFPZ2ozY4Yd4RXr`;
+    this.process(url);
   }
 
-  render() {
-    console.log (this.state.gifs);
-    var allGifs = this.state.gifs.length ? (
-        <div>
-            {this.state.gifs.map((elem) =>
-        <GifCardPresent gif = {elem.images.fixed_height_small.url} key = {elem.id}/>)}
-        </div>
-    ) : (null);
+ process = (url) => {
+    axios.get(url)
+    .then(response => {
+      var result = response.data.data;
+      this.props.update(result);
+        console.log (this.state.gifs);
+    })
+    .catch(err => console.log(err));
+ } 
+
+render() {
 
     return (
           <div>
               <form>
-                  Search Gifs: &nbsp;
-                  <input type='text' placeholder="Type Search" onChange={this.handleChange}/>
+                  Search for Gifs: &nbsp;          
+                  <button className = "button" onClick={this.handleClickTrending}>Trending</button>
+                  <button className = "button" onClick={this.handleClickRandom}>Random</button>
                   <button className = "button" onClick={this.handleClick}>Search</button>
+                  <input type='text' placeholder="Type Search" onChange={this.handleChange}/>
+
               </form>
-               {allGifs}
           </div>
       );
     }
