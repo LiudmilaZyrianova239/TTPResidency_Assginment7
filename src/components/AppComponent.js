@@ -24,9 +24,9 @@ class AppComponent extends Component {
               console.log(err);
             });
 
-        
+
     }
-        
+
   render() {
     console.log (this.state.gifs);
     var allGifs = this.state.gifs.length ? (
@@ -38,7 +38,9 @@ class AppComponent extends Component {
 
 
     return (
-      <div > {allGifs}
+      <div >
+      // {allGifs}
+       <SearchFieldComponent/>
       </div>
     );
   }
