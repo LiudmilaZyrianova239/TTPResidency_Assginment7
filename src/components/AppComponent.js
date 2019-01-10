@@ -89,9 +89,10 @@ class AppComponent extends Component {
 
     return (
       <div > <SearchFieldComponent update = {this.updateGif}/> <br/>
-      Filet by:  <br/>
+      Filter by:  <br/>
       <input type='text' value={this.state.date}  onChange={this.handleChange}/>
-      <button className = "button"  onClick={this.handleClick}>Filter by Date</button>
+      <button className = "button"  onClick={this.handleClick}>Filter by Date</button> <br/><br/>
+      Sort by:
       <button className = "button" onClick={this.handleClickSort}>Sort by Title</button>
       {allGifs}
        

@@ -57,9 +57,9 @@ render() {
     return (
           <div>
               <form>
-                  Search for Gifs: &nbsp;          
-                  <button className = "button" onClick={this.handleClickTrending}>Trending</button>
-                  <button className = "button" onClick={this.handleClickRandom}>Random</button>
+                  Search for Gifs:           <br/>
+                  <button className = "button" onClick={this.handleClickTrending}>Trending</button> <br/>
+                  <button className = "button" onClick={this.handleClickRandom}>Random</button> <br/>
                   <button className = "button" onClick={this.handleClick}>Search</button>
                   <input type='text' placeholder="Type Search" onChange={this.handleChange}/>
 
